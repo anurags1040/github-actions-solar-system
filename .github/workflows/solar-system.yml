@@ -26,6 +26,7 @@ env:
 jobs:
  unit-testing:
    runs-on: ubuntu-latest
+   if: ${{ github.event.inputs.job_to_run == 'unit-testing' || github.event_name == 'push' }}
    steps:
      - name: Checkout Code
        uses: actions/checkout@v2
@@ -48,6 +49,7 @@ jobs:
          path: test-results.xml
  code-coverage:
    runs-on: ubuntu-latest
+   if: ${{ github.event.inputs.job_to_run == 'code-coverage' || github.event_name == 'push' }}
    steps:
      - name: Checkout Code
        uses: actions/checkout@v2
@@ -77,6 +79,7 @@ jobs:
       - unit-testing
       - code-coverage
    runs-on: ubuntu-latest
+   if: ${{ github.event.inputs.job_to_run == 'docker' || github.event_name == 'push' }}
    steps:
     - name: Checkout Repo
       uses: actions/checkout@v4
