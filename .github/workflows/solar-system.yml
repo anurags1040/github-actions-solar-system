@@ -52,10 +52,11 @@ jobs:
      
      - name: Check Coverage
        run: npm run coverage
+       if: always()
     
-    #  - name: Archive Test Results
-    #    uses: actions/upload-artifact@v3
-    #    with:
-    #      name: Code-Coverage-Report
-    #      path: coverage
-    #      retention-days: 5
+     - name: Archive Test Results
+       uses: actions/upload-artifact@v3
+       with:
+         name: Code-Coverage-Report
+         path: coverage
+         retention-days: 5
