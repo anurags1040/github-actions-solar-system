@@ -3,14 +3,6 @@ name: Solar System Workflow
 
 on:
  workflow_dispatch:
-    inputs:
-        BRANCH:
-            required: true
-            default: 'master'
-            type: choice
-            options:
-                - master
-                - 'feature/*'
  push:
    branches:
      - main
