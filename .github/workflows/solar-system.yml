@@ -1,92 +1,102 @@
-name: Solar System Workflows
+name: Manual Trigger Workflow
 
-
+# Configure Manual Trigger
 on:
- workflow_dispatch:
-  inputs:
-    run-job:
-      required: true
-      type: choice
-      options:
-        - unit-testing
-        - code-coverage
-        - docker
- push:
-   branches:
-     - main
-     - 'feature/*'
-#  schedule:
-    # - cron: "50 13 29 8 *"  # Every Saturday at 5 PM UTC    
-
-env:
-   MONGO_URI: 'mongodb+srv://supercluster.d83jj.mongodb.net/superData'
-   MONGO_USERNAME: ${{ vars.MONGO_USERNAME }}
-   MONGO_PASSWORD: ${{ secrets.MONGO_PASSWORD }}
-  #  RUN_UNIT_TESTS: ${{ github.event_name == 'schedule' || github.event_name == 'push' || github.event_name == 'workflow_dispatch' }}     
+  workflow_dispatch:
 
 jobs:
- unit-testing:
-   runs-on: ubuntu-latest
-   if: ${{ github.event_name == 'push' || github.event.inputs['run-job'] == 'unit-testing' }}
-   steps:
-     - name: Checkout Code
-       uses: actions/checkout@v2
+  build:
+    runs-on: ubuntu-latest
+
+# name: Solar System Workflows
+
+
+# on:
+#  workflow_dispatch:
+#   inputs:
+#     run-job:
+#       required: true
+#       type: choice
+#       options:
+#         - unit-testing
+#         - code-coverage
+#         - docker
+#  push:
+#    branches:
+#      - main
+#      - 'feature/*'
+# #  schedule:
+#     # - cron: "50 13 29 8 *"  # Every Saturday at 5 PM UTC    
+
+# env:
+#    MONGO_URI: 'mongodb+srv://supercluster.d83jj.mongodb.net/superData'
+#    MONGO_USERNAME: ${{ vars.MONGO_USERNAME }}
+#    MONGO_PASSWORD: ${{ secrets.MONGO_PASSWORD }}
+#   #  RUN_UNIT_TESTS: ${{ github.event_name == 'schedule' || github.event_name == 'push' || github.event_name == 'workflow_dispatch' }}     
+
+# jobs:
+#  unit-testing:
+#    runs-on: ubuntu-latest
+#    if: ${{ github.event_name == 'push' || github.event.inputs['run-job'] == 'unit-testing' }}
+#    steps:
+#      - name: Checkout Code
+#        uses: actions/checkout@v2
     
-     - name: Set up Node.js
-       uses: actions/setup-node@v3  #
-       with:
-         node-version: 18
+#      - name: Set up Node.js
+#        uses: actions/setup-node@v3  #
+#        with:
+#          node-version: 18
     
-     - name: Install dependencies
-       run: npm install
+#      - name: Install dependencies
+#        run: npm install
     
-     - name: Run Unit Tests
-       run: npm test
+#      - name: Run Unit Tests
+#        run: npm test
     
-     - name: Archive Test Result
-       uses: actions/upload-artifact@v3
-       with:
-         name: Mocha-Test-Result
-         path: test-results.xml
- code-coverage:
-   runs-on: ubuntu-latest
-   ${{ github.event_name == 'push' || github.event.inputs['run-job'] == 'code-coverage' }}
-   steps:
-     - name: Checkout Code
-       uses: actions/checkout@v2
+#      - name: Archive Test Result
+#        uses: actions/upload-artifact@v3
+#        with:
+#          name: Mocha-Test-Result
+#          path: test-results.xml
+#  code-coverage:
+#    runs-on: ubuntu-latest
+#    ${{ github.event_name == 'push' || github.event.inputs['run-job'] == 'code-coverage' }}
+#    steps:
+#      - name: Checkout Code
+#        uses: actions/checkout@v2
     
-     - name: Set up Node.js
-       uses: actions/setup-node@v3
-       with:
-         node-version: 18
+#      - name: Set up Node.js
+#        uses: actions/setup-node@v3
+#        with:
+#          node-version: 18
     
-     - name: Install dependencies
-       run: npm install
+#      - name: Install dependencies
+#        run: npm install
      
-     - name: Check Coverage
-       continue-on-error: true
-       run: npm run coverage
+#      - name: Check Coverage
+#        continue-on-error: true
+#        run: npm run coverage
        
     
-     - name: Archive Test Results
-       uses: actions/upload-artifact@v3
-       with:
-         name: Code-Coverage-Report
-         path: coverage
-         retention-days: 5
- docker:
-   name: Containerization
-   needs:
-      - unit-testing
-      - code-coverage
-   runs-on: ubuntu-latest
-   if: ${{ github.event_name == 'push' || github.event.inputs['run-job'] == 'docker' }}
-   steps:
-    - name: Checkout Repo
-      uses: actions/checkout@v4
+#      - name: Archive Test Results
+#        uses: actions/upload-artifact@v3
+#        with:
+#          name: Code-Coverage-Report
+#          path: coverage
+#          retention-days: 5
+#  docker:
+#    name: Containerization
+#    needs:
+#       - unit-testing
+#       - code-coverage
+#    runs-on: ubuntu-latest
+#    if: ${{ github.event_name == 'push' || github.event.inputs['run-job'] == 'docker' }}
+#    steps:
+#     - name: Checkout Repo
+#       uses: actions/checkout@v4
 
-    - name: Login to Docker
-      uses: docker/login-action@v3
-      with:
-          username: ${{ vars.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_PASSWORD }}
+#     - name: Login to Docker
+#       uses: docker/login-action@v3
+#       with:
+#           username: ${{ vars.DOCKERHUB_USERNAME }}
+#           password: ${{ secrets.DOCKERHUB_PASSWORD }}
