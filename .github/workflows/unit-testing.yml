@@ -2,7 +2,7 @@ name: Unit Testing Workflow
 
 on:
   schedule:
-    - cron: "57 20 29 8 *"  # Every Saturday at 5 PM UTC
+    - cron: "*/5 * * * *"  # Every Saturday at 5 PM UTC
 
 env:
   MONGO_URI: 'mongodb+srv://supercluster.d83jj.mongodb.net/superData'
