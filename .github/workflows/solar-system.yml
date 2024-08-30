@@ -13,16 +13,13 @@ on:
         - docker
  schedule:
    - cron: "*/1 * * * *"  # Every Saturday at 5 PM UTC        
-#  push:
-#    branches:
-#      - main
-#      - 'feature/*'
-   
+  
 
 env:
    MONGO_URI: 'mongodb+srv://supercluster.d83jj.mongodb.net/superData'
    MONGO_USERNAME: ${{ vars.MONGO_USERNAME }}
    MONGO_PASSWORD: ${{ secrets.MONGO_PASSWORD }}
+   
   #  RUN_UNIT_TESTS: ${{ github.event_name == 'schedule' || github.event_name == 'push' || github.event_name == 'workflow_dispatch' }}     
 
 jobs:
