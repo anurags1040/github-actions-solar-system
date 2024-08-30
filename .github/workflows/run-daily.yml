@@ -1,11 +1,11 @@
-name: Experiment
-on: 
-  schedule:
-  - cron: '*/1 * * * *'
+# name: Experiment
+# on: 
+#   schedule:
+#   - cron: '*/1 * * * *'
 
 env:
   ACTIONS_RUNNER_DEBUG: true
-  
+
 jobs:
   job1:
     name: Debug
