@@ -11,10 +11,10 @@ on:
         - unit-testing
         - code-coverage
         - docker
- push:
-   branches:
-     - main
-     - 'feature/*'
+#  push:
+#    branches:
+#      - main
+#      - 'feature/*'
 #  schedule:
     # - cron: "50 13 29 8 *"  # Every Saturday at 5 PM UTC    
 

@@ -1,19 +1,16 @@
-name: Experiment
-on: 
+name: Run-Daily
+
+on:
   schedule:
-  - cron: '*/1 * * * *'
+    - cron: "*/1 * * * *"  # Every minute
 
-env:
-  ACTIONS_RUNNER_DEBUG: true
-  
 jobs:
-  job1:
-    name: Debug
+  run-script:
     runs-on: ubuntu-latest
-
     steps:
-    - name: Git checkout
-      uses: actions/checkout@v2
-      with: { ref: debug }
-    - name: List files
-      run: ls
+    - name: Checkout
+      uses: actions/checkout@v2 
+    - name: Run Script
+      run: |
+        chmod +x script.sh
+        ./script.sh
