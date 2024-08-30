@@ -1,19 +1,12 @@
-# name: Experiment
-# on: 
-#   schedule:
-#   - cron: '*/1 * * * *'
-
-env:
-  ACTIONS_RUNNER_DEBUG: true
+name: "Workflow example"
+on:
+  schedule:
+    - cron: '*/1 * * * *'
 
 jobs:
-  job1:
-    name: Debug
+  hello:
+    name: "Say hello"
     runs-on: ubuntu-latest
-
     steps:
-    - name: Git checkout
-      uses: actions/checkout@v2
-      with: { ref: debug }
-    - name: List files
-      run: ls
+      - name: Display message
+        run: echo "Hello from GitHub Actions!"
