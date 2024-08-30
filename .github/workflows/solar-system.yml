@@ -3,10 +3,18 @@ name: Solar System Workflows
 
 on:
  workflow_dispatch:
- push:
-   branches:
-     - main
-     - 'feature/*'
+  inputs:
+    run-job:
+      required: true
+      type: choice
+      options:
+        - unit-testing
+        - code-coverage
+        - docker
+#  push:
+#    branches:
+#      - main
+#      - 'feature/*'
 #  schedule:
     # - cron: "50 13 29 8 *"  # Every Saturday at 5 PM UTC    
 
