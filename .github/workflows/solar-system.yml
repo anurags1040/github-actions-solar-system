@@ -8,6 +8,7 @@ on:
       required: true
       type: choice
       options:
+        - run-script
         - unit-testing
         - code-coverage
         - docker
