@@ -50,7 +50,7 @@ jobs:
          path: test-results.xml
  code-coverage:
    runs-on: ubuntu-latest
-   ${{ github.event_name == 'push' || github.event.inputs['run-job'] == 'code-coverage' }}
+   if: ${{ github.event_name == 'push' || github.event.inputs['run-job'] == 'code-coverage' }}
    steps:
      - name: Checkout Code
        uses: actions/checkout@v2
