@@ -3,6 +3,14 @@ name: Solar System Workflows
 
 on:
  workflow_dispatch:
+  inputs:
+    run-job:
+      required: true
+      type: choice
+      options:
+        - unit-testing
+        - code-coverage
+        - docker
  push:
    branches:
      - main
@@ -19,7 +27,7 @@ env:
 jobs:
  unit-testing:
    runs-on: ubuntu-latest
-  #  if: ${{ github.event_name == 'schedule' || github.event_name == 'push' || github.event_name == 'workflow_dispatch' }}
+   if: ${{ github.event_name == 'push' || github.event.inputs['run-job'] == 'unit-testing' }}
    steps:
      - name: Checkout Code
        uses: actions/checkout@v2
@@ -42,6 +50,7 @@ jobs:
          path: test-results.xml
  code-coverage:
    runs-on: ubuntu-latest
+   if: ${{ github.event_name == 'push' || github.event.inputs['run-job'] == 'code-coverage' }}
    steps:
      - name: Checkout Code
        uses: actions/checkout@v2
@@ -71,6 +80,7 @@ jobs:
       - unit-testing
       - code-coverage
    runs-on: ubuntu-latest
+   if: ${{ github.event_name == 'push' || github.event.inputs['run-job'] == 'docker' }}
    steps:
     - name: Checkout Repo
       uses: actions/checkout@v4
