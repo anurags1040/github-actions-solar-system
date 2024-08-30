@@ -1,8 +1,9 @@
 name: Unit Testing Workflow
 
 on:
+  workflow_dispatch:
   schedule:
-    - cron: "*/5 * * * *"  # Every Saturday at 5 PM UTC
+    - cron: "*/1 * * * *"  # Every Saturday at 5 PM UTC
 
 env:
   MONGO_URI: 'mongodb+srv://supercluster.d83jj.mongodb.net/superData'
